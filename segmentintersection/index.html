@@ -18,7 +18,7 @@
       const A={x:200, y:150};
       const B={x:150, y:250};
       const C={x:50, y:100};
-      const D={x:250, y:200};
+      const D={x:450, y:400};
       const ctx = myCanvas.getContext("2d");
 
       let angle=0;
@@ -32,7 +32,7 @@
       animate();
 
       function animate() {
-        const radius=50;
+        const radius=250;
         A.x=mouse.x+Math.cos(angle)*radius;
         A.y=mouse.y-Math.sin(angle)*radius;
         B.x=mouse.x-Math.cos(angle)*radius;
@@ -65,8 +65,9 @@
         // drawDot(N, "N", t <  0 || t > 1);
 
         const I = getIntersection(A,B,C,D);
-        drawDot(I, "I");
-
+        if(I) {
+          drawDot(I, "I");
+        }
 
         // t+=0.005;
         requestAnimationFrame(animate);
@@ -84,15 +85,15 @@
           */
             const t=tTop/bottom;
             const u=uTop/bottom;
-//            if(t>=0 && t<=1 && u>=0 && u<=1){
+            if(t>=0 && t<=1 && u>=0 && u<=1){
                 return {
                     x:lerp(A.x,B.x,t),
                     y:lerp(A.y,B.y,t),
                     offset:t
                 }
-//            }
+            }
         }
-        console.log("Null get Intercetion")
+
         return null;
       }
 
