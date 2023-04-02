@@ -49,6 +49,6 @@ function getRGBA(value){
 }
 
 function getRandomColor(){
-    const hue=290+Math.random()*260;
-    return "hsl("+hue+", 100%, 60%)";
+    const hue=290+Math.random()*260; //keeps it out of the blue zone
+    return "hsl("+hue+", 100%, 60%)"; //hue saturation lightness
 }
