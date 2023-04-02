@@ -25,7 +25,21 @@ class Car{
     this.controls = new Controls(controlType);
 
     this.img=new Image();
-    this.img.src="car.png"
+    this.img.src="car.png";
+
+    this.mask=document.createElement("canvas");
+    this.mask.width = width;
+    this.mask.height=height;
+
+    const maskCtx=this.mask.getContext("2d");
+    this.img.onload=()=> { //wait for the image to load so you still have access to this.car object in the function
+        maskCtx.fillStyle=color;
+        maskCtx.rect(0,0,this.width,this.height);
+        maskCtx.fill();
+
+        maskCtx.globalCompositeOperation= "destination-atop";
+        maskCtx.drawImage(this.img,0,0,this.width, this.height);
+    }
   }
 
   update(roadBorders, traffic) {
@@ -125,22 +139,41 @@ class Car{
 
   }
   draw(ctx, drawSensor=false) {
-    if(this.damaged) {
-      ctx.fillStyle="red";
-    } else {
-      ctx.fillStyle=this.color;
-    }
-    ctx.beginPath();
-
-    ctx.moveTo(this.polygon[0].x,this.polygon[0].y);
-    for(let i=0;i<this.polygon.length;i++) {
-      ctx.lineTo(this.polygon[i].x,this.polygon[i].y);
-    }
-    ctx.fill();
-
+    // if(this.damaged) {
+    //   ctx.fillStyle="red";
+    // } else {
+    //   ctx.fillStyle=this.color;
+    // }
+    // ctx.beginPath();
+    //
+    // ctx.moveTo(this.polygon[0].x,this.polygon[0].y);
+    // for(let i=0;i<this.polygon.length;i++) {
+    //   ctx.lineTo(this.polygon[i].x,this.polygon[i].y);
+    // }
+    // ctx.fill();
 
     if(this.sensor && drawSensor) {
       this.sensor.draw(ctx);
     }
+
+    ctx.save();
+    ctx.translate(this.x,this.y);
+    ctx.rotate(-this.angle);
+    if(!this.damaged) {
+      ctx.drawImage(this.mask,
+        -this.width/2,
+        -this.height/2,
+        this.width,
+        this.height);
+
+      ctx.globalCompositeOperation="multiply";
+    }
+
+    ctx.drawImage(this.img,
+      -this.width/2,
+      -this.height/2,
+      this.width,
+      this.height);
+    ctx.restore();
   }
 }
