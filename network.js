@@ -18,6 +18,8 @@ class NeuralNetwork{
     return outputs;
   }
 
+  //If this is 0 then it won't mutate, and 1 will cause the most mutation throughout
+  //the network.
   static mutate(network,amount=1){
     network.levels.forEach(level => {
       for(let i=0;i<level.biases.length;i++){

@@ -9,7 +9,7 @@ class Car{
     this.speed=0;
     this.acceleration=0.2;
     this.maxSpeed=maxSpeed;
-    this.friction=0.05;
+    this.friction=0.02;
 
     this.angle=0;
     this.damaged=false;
@@ -19,7 +19,7 @@ class Car{
     if(controlType != "DUMMY") {
       this.sensor = new Sensor(this);
       this.brain=new NeuralNetwork(
-        [this.sensor.rayCount, 6, 4]
+        [this.sensor.rayCount, 10, 10, 10, 4]
       );
     }
     this.controls = new Controls(controlType);

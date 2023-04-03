@@ -10,9 +10,9 @@ const networkCtx = networkCanvas.getContext("2d");
 const road=new Road(carCanvas.width/2, carCanvas.width*0.9);
 
 //Hyper parameters
-const MUTATION_RATE = 0.01; //How much the brain changes from the last timeout
+const MUTATION_RATE = 0.02; //How much the brain changes from the last timeout
 const N = 100; //The number of cars being generated for the mutation
-const CAR_SPEED = 7; //How fast the car is going
+const CAR_SPEED = 4; //How fast the car is going
 
 //const car=new Car(road.getLaneCenter(3),100,30,50,"AI","blue");
 
